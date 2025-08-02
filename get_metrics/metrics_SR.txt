@@ -1,0 +1,8 @@
+The pic path is D:\Study\Codes\PSFR-GAN\datasets\SR_Celeb\hq
+The gt path is D:\Study\Codes\PSFR-GAN\datasets\Test_CelebA-HQ-512
+ Tips: `|` means the bigger the better, .|. means the smaller the better
+    `|`ssim = 0.6696
+    `|`psnr = 26.3186
+    .|.lpsips = 0.2448
+    .|.niqe = 4.9183
+    `|`MS_SSIM = 0.8694
