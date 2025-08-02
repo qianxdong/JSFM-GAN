@@ -27,7 +27,7 @@ class JSFMGANModel(BaseModel):
             parser.add_argument('--lambda_pcp', type=float, default=1.0,  help='weight for vgg perceptual loss')
             parser.add_argument('--lambda_fm',  type=float, default=10.0, help='weight for Multi scale feature matching loss')
             parser.add_argument('--lambda_g',   type=float, default=1.0,  help='weight for adversarial loss')
-            parser.add_argument('--lambda_ss',  type=float, default=1000., help='weight for semantic style loss')
+            parser.add_argument('--lambda_ss',  type=float, default=100., help='weight for semantic style loss')
             parser.add_argument('--lambda_srl', type=float, default=10.0,  help='weight for Stage reconstruction loss')
             parser.add_argument('--srl', action='store_true', help='if specified, set to fpn')
             parser.add_argument('--afpm', action='store_true', help='Adjustment of Facial Parsing Maps')
