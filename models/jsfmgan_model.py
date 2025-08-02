@@ -95,19 +95,45 @@ class JSFMGANModel(BaseModel):
 
     # afpm实现
     def adjust_map(self, maps):
-        skin  = maps[:, 1:2, :, :]
-        eye_g = maps[:, 3:4, :, :]
-
-        c = torch.chunk(eye_g, chunks=2, dim=3)
-        area  = torch.sum(eye_g)
+        # part of mask
+        skin = maps[1:2, :, :]
+        eye_g = maps[3:4, :, :]
+        l_eye = maps[4:5, :, :]
+        r_eye = maps[5:6, :, :]
+        l_brow = maps[6:7, :, :]
+        r_brow = maps[7:8, :, :]
+        
+        c = torch.chunk(eye_g, chunks=2, dim=2)
+        area = torch.sum(eye_g)
         area1 = torch.sum(c[0])
         area2 = torch.sum(c[1])
 
-        if area < 0.04*(maps.shape[2] * maps.shape[3]) or area1 == 0 or area2 == 0:
+        if area / (maps.shape[1] * maps.shape[2]) < 0.04 or area1 == 0 or area2 == 0:
             skin = skin + eye_g
             eye_g[eye_g > 0] = 0
-            maps[:, 1:2, :, :] = skin
-            maps[:, 3:4, :, :] = eye_g
+            maps[1:2, :, :] = skin
+            maps[3:4, :, :] = eye_g
+        # eye    
+        area_le = torch.sum(l_eye)
+        area_re = torch.sum(r_eye)
+
+        if (area_le+area_re) / (maps.shape[1] * maps.shape[2]) < 0.001 or area_le == 0 or area_re == 0:
+            skin = skin + l_eye + r_eye
+            l_eye[l_eye > 0] = 0
+            r_eye[r_eye > 0] = 0
+            maps[1:2, :, :] = skin
+            maps[4:6, :, :] = torch.cat([l_eye, r_eye], dim=0)
+            
+        # brow    
+        area_lb = torch.sum(l_brow)
+        area_rb = torch.sum(r_brow)
+
+        if (area_lb+area_rb) / (maps.shape[1] * maps.shape[2]) < 0.005 or area_lb == 0 or area_rb == 0:
+            skin = skin + l_brow + r_brow
+            l_brow[l_brow > 0] = 0
+            r_brow[r_brow > 0] = 0
+            maps[1:2, :, :] = skin
+            maps[6:8, :, :] = torch.cat([l_brow, r_brow], dim=0)
         return maps
 
     def forward(self):
