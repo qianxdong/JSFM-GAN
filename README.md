@@ -4,9 +4,9 @@
 
 ![](material/1-online.png)
 
-[<img src="assets/FR1.png" height="250px"/>](https://imgsli.com/MzYwNzc3)
-[<img src="assets/FR3.png" height="250px"/>](https://imgsli.com/MzYwNzcz)
-[<img src="assets/FR2.png" height="250px"/>](https://imgsli.com/MzYwNzc2)
+[<img src="assets/FR1.png" height="260px"/>](https://imgsli.com/MzYwNzc3)
+[<img src="assets/FR3.png" height="260px"/>](https://imgsli.com/MzYwNzcz)
+[<img src="assets/FR2.png" height="260px"/>](https://imgsli.com/MzYwNzc2)
 
 
 ## Prerequisites and Installation
